@@ -7,8 +7,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.widget.Toast;
+import android.content.Context;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TextView quoteTextView = findViewById(R.id.quoteTextView);
+        ImageButton shareButton = findViewById(R.id.shareButton);
 
         String quote = "This is probably the deepest and most significant philosophical quote you have ever read";
         String author = "Sigma giga chad";
@@ -61,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
+            }
+        });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String copiedText = formattedQuote + "\n\nLearn More: \"" + url + "\"";
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("POW App Quote", copiedText);
+                clipboardManager.setPrimaryClip(clipData);
+                //Toast.makeText(MainActivity.this, "Quote copied to clipboard", Toast.LENGTH_SHORT).show();
             }
         });
 
