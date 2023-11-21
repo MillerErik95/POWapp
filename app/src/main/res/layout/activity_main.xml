@@ -23,6 +23,12 @@
             android:src="@drawable/blur"
             android:alpha="0.6" />
 
+        <Button
+            android:id="@+id/btnOpenNewsFeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open News Feed" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
