@@ -2,7 +2,11 @@ package com.example.powapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Toolbar;
@@ -47,9 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
         String quote = "This is probably the deepest and most significant philosophical quote you have ever read";
         String author = "Sigma giga chad";
+        String url = "https://youtu.be/dQw4w9WgXcQ?si=NBGWWnWDvQIIgSVU";
         String formattedQuote = String.format("\"%s\"\n\n- %s", quote, author);
 
         quoteTextView.setText(formattedQuote);
+
+        quoteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
 
     }
 }
