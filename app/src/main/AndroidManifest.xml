@@ -21,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NewsFeedActivity"
+            android:exported="false">
+            <!-- No intent-filter needed here unless you want this activity to handle specific intents -->
+        </activity>
     </application>
     <uses-permission
         android:name="android.permission.INTERNET" />
