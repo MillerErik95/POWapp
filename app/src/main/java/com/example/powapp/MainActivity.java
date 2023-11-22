@@ -1,25 +1,16 @@
 package com.example.powapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import java.util.Calendar;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.ImageView;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Calendar calendar = Calendar.getInstance();
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
-        new FetchQuoteTask().execute();
+        if (!isQuoteFetchedToday()) {
+            new FetchQuoteTask().execute();
+        } else {
+            SharedPreferences preferences = getSharedPreferences("quote_pref", Context.MODE_PRIVATE);
+            author = preferences.getString("last_author", "");
+            quote = preferences.getString("last_quote", "");
+            url = "https://en.wikipedia.org/wiki/" + author.replace(" ", "_");
+            updateQuoteText();
+        }
 
         setDayOfWeekBackground();
         quoteTextView.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +101,22 @@ public class MainActivity extends AppCompatActivity {
 
         int background = dayBackgrounds[dayOfWeek - 1];
         backgroundImageView.setBackgroundResource(background);
+    }
+
+    private void updateQuoteText() {
+        String formattedQuote = String.format("\"%s\"\n\n- %s", quote, author);
+        quoteTextView.setText(formattedQuote);
+    }
+
+    private boolean isQuoteFetchedToday() {
+        SharedPreferences preferences = getSharedPreferences("quote_pref", Context.MODE_PRIVATE);
+        String lastFetchedDate = preferences.getString("last_fetched_date", "");
+
+        String currentDate = Calendar.getInstance().get(Calendar.YEAR) +
+                String.format("%02d", Calendar.getInstance().get(Calendar.MONTH) + 1) +
+                String.format("%02d", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+        return lastFetchedDate.equals(currentDate);
     }
 
     public class Quote {
@@ -151,10 +163,21 @@ public class MainActivity extends AppCompatActivity {
 
                 author = randomQuote.getSource();
                 quote = randomQuote.getQuote();
-
                 url = "https://en.wikipedia.org/wiki/" + author.replace(" ", "_");
-                String formattedQuote = String.format("\"%s\"\n\n- %s", quote, author);
-                quoteTextView.setText(formattedQuote);
+
+                SharedPreferences preferences = getSharedPreferences("quote_pref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+
+                String currentDate = Calendar.getInstance().get(Calendar.YEAR) +
+                        String.format("%02d", Calendar.getInstance().get(Calendar.MONTH) + 1) +
+                        String.format("%02d", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+                editor.putString("last_fetched_date", currentDate);
+                editor.putString("last_author", author);
+                editor.putString("last_quote", quote);
+                editor.apply();
+
+                updateQuoteText();
             }
         }
     }
