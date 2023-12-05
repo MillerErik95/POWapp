@@ -28,6 +28,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Open News Feed" />
+        <Button
+            android:id="@+id/btnOpenDiscussionBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="690dp"
+            android:layout_marginEnd="195dp"
+            android:insetTop="4dp"
+            android:text="Open Discussion Board" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -60,9 +70,11 @@
                     android:layout_height="80dp"
                     app:srcCompat="@drawable/sharp_share_24"
                     android:layout_marginTop="16dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless" />
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Share" />
 
             </LinearLayout>
+
 
         </RelativeLayout>
 
