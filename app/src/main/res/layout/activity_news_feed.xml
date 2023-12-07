@@ -28,20 +28,4 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- item_news_feed.xml -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:id="@+id/tvNewsItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

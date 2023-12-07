@@ -11,6 +11,8 @@ public class NewsItem {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    // Getters
+
     public String getTitle() {
         return title;
     }
@@ -22,4 +24,8 @@ public class NewsItem {
     public String getThumbnailUrl() {
         return thumbnailUrl;
     }
+
 }
+
+}
+
