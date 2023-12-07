@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_height="match_parent"
+    android:background="#400080"
+    android:padding="30dp">
 
-    <!-- TextView for News Title or Summary -->
     <TextView
         android:id="@+id/tvNewsItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageNewsThumbnail"
+        android:background="#400080"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        android:text="News Title"
         android:textSize="18sp"
-        android:text="News Item" />
-
-    <!-- ImageView for News Thumbnail (Optional) -->
-    <ImageView
-        android:id="@+id/imageNewsThumbnail"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" /> <!-- Replace with your drawable -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintDimensionRatio="W,16:9"
+        app:layout_constraintTop_toBottomOf="@+id/tvNewsItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </WebView>
+
+        <ImageView
+            android:id="@+id/imageNewsThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_launcher_background"
+            app:layout_constraintTop_toTopOf="@id/webView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/webView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
